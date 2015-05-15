@@ -15,10 +15,11 @@ oldip = str(conn2)
 print conn["ip"]
 print oldip
 
-with open(log, 'w') as logf1:
+with open(log, 'r+') as logf1:
     if os.path.exists(log):
-        logf1 = open(log, 'r+')
+        logf1 = open(log, 'r')
         checks = logf1.readlines(-1)
+        logf1.close()
         print checks
         chks = checks
         #Chks is returning []
@@ -28,6 +29,7 @@ with open(log, 'w') as logf1:
         if chks == oldip:
             print 'haha, good news no change'
         else:
+            logf1 = open(log, 'w+')
             print'At this point I would email you the new ip address'
             logf1.write(oldip)
     else:
